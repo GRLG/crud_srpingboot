@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head th:replace="plantilla/template :: head">
+
+    <title>ejemplo</title>
+</head>
+<body>
+<header th:replace="plantilla/template :: header">
+</header>
+<h1 th:text="${titulo}"></h1>
+<div class="table-responsive">
+      <a class="btn btn-outline-warning"  th:href="@{/views/clientes/create}"
+        th:text="'Nuevo Cliente'" title="Crear Nuevo Registro" > </a>
+
+
+
+    <a class="btn btn-outline-warning float-end"  th:href="@{/views/clientes/(format=xlsx)}"
+       target="_blank"   title="Exportar Lista a Excel"  >
+        <img th:src="@{/images/xlsx.png }" height="30" src="">
+    </a>
+
+      <a class="btn btn-outline-warning float-end"  th:href="@{/views/clientes/(format=pdf)}"
+        target="_blank"   title="Exportar Lista a PDF"  >
+          <img th:src="@{/images/pdf.png }" height="30" src="">
+      </a>
+    <a class="btn btn-outline-warning float-end"  th:href="@{/views/clientes/export}"
+       target="_blank"   title="Exportar Lista a cvs"  >
+        <img th:src="@{/images/cvs.png}" height="30" src="">
+    </a>
+
+    <table class="table"  >
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col" >Acciones </th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cl:${clientes}">
+            <th scope="row" th:text="${cl.id}"> </th>
+            <td th:text="${cl.nombres}"> </td>
+            <td th:text="${cl.apellidos}"> </td>
+            <td th:text="${cl.telefono}"> </td>
+            <td th:text="${cl.email}"> </td>
+            <td th:text="${cl.ciudad.ciudad}"> </td>
+            <td>
+               <a class="btn btn btn-outline-info"  th:href="@{/views/clientes/edit/}+${cl.id}"
+                   th:text="'Editar'" title="Editar" > </a>
+
+               <a class="btn btn btn-outline-danger"  th:href="@{/views/clientes/delete/}+${cl.id}"
+                   th:text="'Eliminar'" title="Eliminar"
+                   onclick="return confirm('Está seguro de eliminar el registro?');"> </a>
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</div>
+<footer th:replace="plantilla/template :: footer">
+
+</footer>
+
+</body>
+
+</html>

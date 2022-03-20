@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head th:replace="plantilla/template :: head">
+
+    <title>ejemplo</title>
+</head>
+<body>
+<header th:replace="plantilla/template :: header">
+</header>
+<div class="container">
+    <div class="card-header bg-light">
+        <h5 th:text="${titulo}"></h5>
+    </div>
+    <div class="card-body">
+        <form th:action= "@{/views/clientes/save}" th:object="${cliente}" method="post">
+
+            <div class="form-floating mb-3">
+                <input type="hidden" th:field="*{id}" class="form-control " >
+                <input type="text" th:field="*{nombres}" class="form-control" id="nombres" placeholder="Nombres del Cliente" >
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('nombres')}"  th:errors="*{nombres}"> </small>
+                <label for="nombres">Nombres: </label>
+
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" placeholder="Apellidos del CLiente"  >
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}"  th:errors="*{apellidos}"> </small>
+                <label for="apellidos">Apellidos: </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" th:field="*{telefono}" class="form-control" id="telefono" placeholder="Telefonos del CLiente" >
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"  th:errors="*{telefono}"> </small>
+                <label for="telefono">Telefonos: </label>
+
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Email del Cliente" >
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}"  th:errors="*{email}"> </small>
+                <label for="email">Email: </label>
+
+            </div>
+
+            <div class="form-floating mb-3">
+                <select class="form-select" th:field="*{ciudad}" id="ciudad" aria-label="Ciudades" >
+                    <option th:each="ciudad:${ciudades}"
+                            th:value="${ciudad.id}"
+                            th:text="${ciudad.ciudad}" >
+                    </option>
+                </select>
+                <label for="ciudad">Seleccione una Ciudad</label>
+            </div>
+
+            <div class="card-footer bg-light">
+                <input type="submit" class="btn btn-outline-warning" value="Guardar"/>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>
+
+<footer th:replace="plantilla/template :: footer">
+
+</footer>
+
+
+</body>
+
+</html>
